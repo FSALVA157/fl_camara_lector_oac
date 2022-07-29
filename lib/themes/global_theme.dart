@@ -5,7 +5,7 @@ class GlobalTheme{
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: primary,
-     scaffoldBackgroundColor: Colors.grey[300],
+     scaffoldBackgroundColor: Colors.white,
     appBarTheme:  AppBarTheme(
       color: primary,
       elevation: 0
