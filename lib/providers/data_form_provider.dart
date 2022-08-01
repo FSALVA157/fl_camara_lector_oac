@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class DataFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  DataModel data;
+  final DataModel? data;
 
-  DataFormProvider(this.data);
+  DataFormProvider({this.data});
 
   // updateAvailable(bool valor){
   //    this.producto.available = valor;

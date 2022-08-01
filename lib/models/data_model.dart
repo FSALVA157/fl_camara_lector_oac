@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+DataModel dataModelFromJson(String str) => DataModel.fromJson(json.decode(str));
+
+String dataModelToJson(DataModel data) => json.encode(data.toJson());
+
 class DataModel {
   int dniNumero;      
   String? dniTramite;     
@@ -21,4 +27,28 @@ class DataModel {
     this.foto
     }){}
 
+    factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
+        dniNumero: json["dniNumero"],
+        dniTramite: json["dniTramite"],
+        nacimiento: json["nacimiento"],
+        apellido: json["apellido"],
+        nombre: json["nombre"],
+        sexo: json["sexo"],
+        dniEjemplar: json["dniEjemplar"],
+        fechaEmisionDni: json["fechaEmisionDni"],
+        foto: json["foto"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "dniNumero": dniNumero,
+        "dniTramite": dniTramite,
+        "nacimiento": nacimiento,
+        "apellido": apellido,
+        "nombre": nombre,
+        "sexo": sexo,
+        "dniEjemplar": dniEjemplar,
+        "fechaEmisionDni": fechaEmisionDni,
+        "foto": foto,
+    };
 }
+

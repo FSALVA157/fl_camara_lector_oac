@@ -10,6 +10,7 @@ class AppRoutes{
     RouteModel(route: 'formulario', icon: Icons.camera, name: "Form Screen", screen: FormScreen()),
     RouteModel(route: 'login', icon: Icons.login, name: "Login Screen", screen: LoginScreen()),
     RouteModel(route: 'scan', icon: Icons.qr_code, name: "Scan Screen", screen: ScanScreen()),
+    RouteModel(route: 'lista', icon: Icons.people, name: "List Screen", screen: ListScreen()),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes(){

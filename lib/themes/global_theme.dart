@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GlobalTheme{
-  static final primary = Colors.deepPurpleAccent;
+  static final primary = Colors.amber[800];
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: primary,

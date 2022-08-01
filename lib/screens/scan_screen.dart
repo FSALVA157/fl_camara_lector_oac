@@ -10,13 +10,10 @@ class ScanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dataFormProvider = Provider.of<DataFormProvider>(context);
+    
     return  Scaffold(
-      appBar: AppBar(
-        title: Text('OAC'),
-        centerTitle: true,
-      ),
-      body: Center(
-         child: Text('HomeScreen'),
+         body: Center(
+         child: FondoBienvenida(),
       ),
       floatingActionButton: ScanButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
