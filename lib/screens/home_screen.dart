@@ -1,3 +1,4 @@
+
 import 'package:fl_oac/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class HomeScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final ancho = size.width;
     final alto = size.height;
+    
 
     return  Scaffold(
       body: ScrollViewBotonera(alto: alto),

@@ -1,5 +1,6 @@
 import 'package:fl_oac/app_routes.dart';
 import 'package:fl_oac/providers/data_form_provider.dart';
+import 'package:fl_oac/services/db_service.dart';
 import 'package:fl_oac/themes/global_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,16 @@ class AppState extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final DataModel tempData =  DataModel(
+        dniNumero: 21633094,      
+        nacimiento: "02/08/1970",
+        apellido: "Salva",     
+        nombre: "Fernando", 
+        sexo: "masculino"  
+
+    );
+    DBService.db.nuevoScan(tempData);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Oficina de Ciudadanos',

@@ -5,6 +5,7 @@ DataModel dataModelFromJson(String str) => DataModel.fromJson(json.decode(str));
 String dataModelToJson(DataModel data) => json.encode(data.toJson());
 
 class DataModel {
+  int? id;
   int dniNumero;      
   String? dniTramite;     
   String nacimiento;  
@@ -16,6 +17,7 @@ class DataModel {
   String? foto;
 
   DataModel({
+    this.id,
     required this.dniNumero,
     this.dniTramite,
     required this.nacimiento,
@@ -28,6 +30,7 @@ class DataModel {
     }){}
 
     factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
+        id: json["id"],
         dniNumero: json["dniNumero"],
         dniTramite: json["dniTramite"],
         nacimiento: json["nacimiento"],
@@ -40,6 +43,7 @@ class DataModel {
     );
 
     Map<String, dynamic> toJson() => {
+        "id": id,
         "dniNumero": dniNumero,
         "dniTramite": dniTramite,
         "nacimiento": nacimiento,
