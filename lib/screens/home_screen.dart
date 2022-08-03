@@ -1,6 +1,8 @@
 
+import 'package:fl_oac/providers/data_form_provider.dart';
 import 'package:fl_oac/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -9,9 +11,13 @@ class HomeScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final dataProvider = Provider.of<DataFormProvider>(context);
+
     final size = MediaQuery.of(context).size;
     final ancho = size.width;
     final alto = size.height;
+
+    dataProvider.cargarGente();
     
 
     return  Scaffold(

@@ -27,15 +27,18 @@ class AppState extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final DataModel tempData =  DataModel(
-        dniNumero: 21633094,      
-        nacimiento: "02/08/1970",
-        apellido: "Salva",     
-        nombre: "Fernando", 
-        sexo: "masculino"  
+    // final DataModel tempData =  DataModel(
+    //     dniNumero: 21633094,      
+    //     nacimiento: "02/08/1970",
+    //     apellido: "Salva",
+    //     nombre: "Fernando",
+    //     sexo: "masculino"
 
-    );
-    DBService.db.nuevoScan(tempData);
+    // );
+      //DBService.db.database;
+     //DBService.db.nuevoScan(tempData);
+     //DBService.db.dropTable();
+     
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

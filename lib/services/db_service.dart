@@ -31,38 +31,108 @@ class DBService{
       //creamos la db
       return await openDatabase(
         path,
-        version: 4,
+        version: 1,
         onOpen: (db)async{
           print('IMPRIMIENDO LA VERSION');
           print(await db.getVersion());
-        },
-        onCreate: (Database db, int version)async{
-            await db.execute('''
-                  CREATE TABLE personas(
-                    id INTEGER PRIMARY KEY,
-                    dniNumero INTEGER UNIQUE,
-                    dniTramite TEXT,
-                    nacimiento TEXT,
-                    apellido TEXT,
-                    nombre TEXT,
-                    sexo TEXT,
-                    dniEjemplar TEXT
-                    fechaEmisionDni  TEXT,
-                    foto TEXT,
-                  )
-                    ''');
+          //  await db.execute('''
+          //     CREATE TABLE ciudadanos(
+          //     id INTEGER PRIMARY KEY,
+          //     dniNumero INTEGER,
+          //     dniTramite TEXT,
+          //     nacimiento TEXT,
+          //     apellido TEXT,
+          //     nombre TEXT,
+          //     sexo TEXT,
+          //     dniEjemplar TEXT,
+          //     fechaEmisionDni TEXT,
+          //     foto TEXT
+          //     )
+          //     ''');
+           
+        //onCreate: (Database db, int version)async{
+        //    await db.execute('''
+        //       CREATE TABLE ciudadanos(
+        //       id INTEGER PRIMARY KEY,
+        //       dniNumero INTEGER UNIQUE,
+        //       dniTramite TEXT,
+        //       nacimiento TEXT,
+        //       apellido TEXT,
+        //       nombre TEXT,
+        //       sexo TEXT,
+        //       dniEjemplar TEXT,
+        //       fechaEmisionDni TEXT,
+        //       foto TEXT
+        //       )
+        //       ''');
+        // },
+
         }
         );
 
       
   }
 
-  Future<int> nuevoScan(DataModel nuevoScan)async{
+  Future<int> nuevoCiudadano(DataModel nuevoCiudadano)async{
       //verficar la base de datos
       final db = await database;
       //carguemos los datos
-      final res = await db.insert('personas', nuevoScan.toJson());
-      print(res);
+      final res = await db.insert('ciudadanos', nuevoCiudadano.toJson());
+      
       return res;
   }
+
+  dropTable(String tableName)async{
+    final db = await database;
+     await db.execute('''
+      DROP TABLE ${tableName}
+      ''');
+  }
+
+  Future<DataModel?> getOneCiudadanobyId(int id)async{
+    final db = await database;
+    final res = await db.query('ciudadanos',where: "id = ?", whereArgs: [id]);
+    return res.isNotEmpty
+            ? DataModel.fromJson(res.first)
+            : null;
+  }
+
+  Future<List<DataModel>> getAllCiudadano()async{
+    final db = await database;
+
+    final res = await db.query('ciudadanos');
+
+    final List<DataModel> lista =  res.isNotEmpty
+        ? res.map((e) => DataModel.fromJson(e)).toList()
+        :[];
+    
+    return lista;
+  }
+
+  Future<int> updateCiudadano(DataModel nuevaData) async{
+    final db = await database;
+
+    final res = await db.update('ciudadanos', nuevaData.toJson(), where: "id=?", whereArgs: [nuevaData.id]);
+
+    return res;
+  }
+
+  Future<int> deleteCiudadano(int id)async{
+    final db = await database;
+    final res = await db.delete('ciudadanos', where: "id =?", whereArgs: [id]);
+    return res;
+  }
+
+  Future<int> deleteAllCiudadanos()async{
+      final db = await database;
+
+      final res = await db.rawDelete('''
+              DELETE FROM ciudadanos
+              ''');
+      return res;
+  }
+
+
+
+
 }
