@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final dataProvider = Provider.of<DataFormProvider>(context);
+    final dataProvider = Provider.of<DataFormProvider>(context, listen: false);
 
     final size = MediaQuery.of(context).size;
     final ancho = size.width;

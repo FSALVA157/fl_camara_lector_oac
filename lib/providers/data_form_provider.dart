@@ -4,9 +4,24 @@ import 'package:flutter/material.dart';
 
 class DataFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  late DataModel persona;
-  List<DataModel> gente = [];
 
+  late DataModel persona = new DataModel(
+        dniNumero: 21633094,      
+        nacimiento: "02/08/1970",
+        apellido: "Salva",
+        nombre: "Fernando",
+        sexo: "masculino"
+  );
+  
+  List<DataModel> gente = [];
+  bool _isProcessing = false;
+
+  bool get isProcessing => _isProcessing;
+
+  void set isProcessing(bool valor){
+    _isProcessing = valor;
+    notifyListeners();
+  }
 
   altaCiudadano(DataModel persona) async{
       int clave = await DBService.db.nuevoCiudadano(persona);
@@ -21,8 +36,10 @@ class DataFormProvider extends ChangeNotifier {
   }
 
   borrarTodosCiudadanos()async{
+    isProcessing = true;
     await DBService.db.deleteAllCiudadanos();
     this.gente = [];
+    isProcessing = false;
     notifyListeners();
   }
 

@@ -54,5 +54,7 @@ class DataModel {
         "fechaEmisionDni": fechaEmisionDni,
         "foto": foto,
     };
+
+     
 }
 

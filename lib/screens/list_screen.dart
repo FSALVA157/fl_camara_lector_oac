@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:fl_oac/providers/data_form_provider.dart';
 import 'package:fl_oac/themes/global_theme.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,47 @@ class ListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Listado de Registros del Dia'),
         centerTitle: true,
+        leading: Icon(Icons.keyboard_arrow_left),
+        actions: [
+          IconButton(
+            onPressed: () => {
+              showDialog(
+                context: context,
+                builder: (context){
+                    return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.circular(15)
+                            ),
+                            title: Text('Confirmar Eliminación de Listado'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                (dataProvider.isProcessing)?
+                                    CircularProgressIndicator():
+                                  FlutterLogo(
+                                    size: 50,
+                                  )
+                              ],                              
+                            ),
+                            actions: [
+                              TextButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(GlobalTheme.primary)
+                                ),
+                                child: Text('Borrar', style: TextStyle(color: Colors.white)),
+                                onPressed: (){
+                                    dataProvider.borrarTodosCiudadanos();
+                                    return;
+                                },
+                              )
+                            ],
+                    );
+
+              })
+            },
+            icon: Icon(Icons.delete_forever_sharp)
+            )
+        ],
       ),
       body: ListView.builder(
         itemCount: dataProvider.gente.length,

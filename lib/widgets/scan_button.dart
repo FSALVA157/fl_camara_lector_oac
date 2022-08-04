@@ -1,7 +1,8 @@
 // import 'package:cartilla_flutter/models/personal_response.dart';
 // import 'package:cartilla_flutter/providers/dni_provider.dart';
 // import 'package:cartilla_flutter/services/visita_service.dart';
- import 'package:fl_oac/providers/data_form_provider.dart';
+ import 'package:fl_oac/models/data_model.dart';
+import 'package:fl_oac/providers/data_form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
@@ -51,8 +52,18 @@ class ScanButton extends StatelessWidget {
             titleText: 'Procesando...',
             dismissOnTouchOutside: false,
           );
-          // dialog.show();
-          // .getData(array);
+          dialog.show();
+          providerData.persona = DataModel(
+            dniNumero: int.parse(array[4]),
+            apellido: array[1],
+            nombre: array[2],
+            sexo: array[3],
+            nacimiento: array[6],
+            fechaEmisionDni: array[7],
+            dniTramite: array[0],
+            dniEjemplar : array[5]            
+         );
+
           // String dato_dni = array[4].toString();
           // var servicio = VisitaService();
 
