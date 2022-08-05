@@ -49,25 +49,25 @@ class DBService{
           //     foto TEXT
           //     )
           //     ''');
-           
-        //onCreate: (Database db, int version)async{
-        //    await db.execute('''
-        //       CREATE TABLE ciudadanos(
-        //       id INTEGER PRIMARY KEY,
-        //       dniNumero INTEGER UNIQUE,
-        //       dniTramite TEXT,
-        //       nacimiento TEXT,
-        //       apellido TEXT,
-        //       nombre TEXT,
-        //       sexo TEXT,
-        //       dniEjemplar TEXT,
-        //       fechaEmisionDni TEXT,
-        //       foto TEXT
-        //       )
-        //       ''');
-        // },
-
-        }
+        }, 
+        onCreate: (Database db, int version)async{
+           await db.execute('''
+              CREATE TABLE ciudadanos(
+              id INTEGER PRIMARY KEY,
+              dniNumero INTEGER,
+              dniTramite TEXT,
+              nacimiento TEXT,
+              apellido TEXT,
+              nombre TEXT,
+              sexo TEXT,
+              dniEjemplar TEXT,
+              fechaEmisionDni TEXT,
+              foto TEXT
+              )
+              ''');
+        },
+        
+        //}
         );
 
       

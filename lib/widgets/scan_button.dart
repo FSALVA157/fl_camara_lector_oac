@@ -39,20 +39,22 @@ class ScanButton extends StatelessWidget {
               titleText: 'Código No Váido!',
             ).show();
           }
-          StylishDialog errorDialog = StylishDialog(
-              context: context,
-              alertType: StylishDialogType.ERROR,
-              titleText: 'No Empadronado!',
-              contentText:
-                  "Esta persona no figura en la base de datos del Sistema de Visitas");
-          StylishDialog dialog = StylishDialog(
-            context: context,
-            alertType: StylishDialogType.PROGRESS,
-            animationLoop: false,
-            titleText: 'Procesando...',
-            dismissOnTouchOutside: false,
-          );
-          dialog.show();
+          // StylishDialog errorDialog = StylishDialog(
+          //     context: context,
+          //     alertType: StylishDialogType.ERROR,
+          //     titleText: 'No Empadronado!',
+          //     contentText:
+          //         "Esta persona no figura en la base de datos del Sistema de Visitas"
+          //     );
+
+          // StylishDialog dialog = StylishDialog(
+          //   context: context,
+          //   alertType: StylishDialogType.PROGRESS,
+          //   animationLoop: false,
+          //   titleText: 'Procesando...',
+          //   dismissOnTouchOutside: false,
+          // );
+         // dialog.show();
           providerData.persona = DataModel(
             dniNumero: int.parse(array[4]),
             apellido: array[1],
@@ -63,6 +65,7 @@ class ScanButton extends StatelessWidget {
             dniTramite: array[0],
             dniEjemplar : array[5]            
          );
+         Navigator.pushNamed(context, 'formulario');
 
           // String dato_dni = array[4].toString();
           // var servicio = VisitaService();

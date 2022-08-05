@@ -10,11 +10,24 @@ class DataFormProvider extends ChangeNotifier {
         nacimiento: "02/08/1970",
         apellido: "Salva",
         nombre: "Fernando",
-        sexo: "masculino"
+        sexo: "masculino",
+        foto: "/data/user/0/com.example.fl_oac/cache/3512e8c2-1c3a-4eff-84ad-65a761472da16740464865372477574.jpg"
   );
   
   List<DataModel> gente = [];
   bool _isProcessing = false;
+  bool isSaving = false;
+  String _path_foto="/data/user/0/com.example.fl_oac/cache/3512e8c2-1c3a-4eff-84ad-65a761472da16740464865372477574.jpg";
+
+  String get path_foto{
+    return this._path_foto;
+  }
+
+  set path_foto(String ruta){
+    this._path_foto = ruta;
+    this.persona.foto = this._path_foto;
+    notifyListeners();
+  }
 
   bool get isProcessing => _isProcessing;
 

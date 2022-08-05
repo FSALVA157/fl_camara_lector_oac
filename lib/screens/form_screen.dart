@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:fl_oac/providers/data_form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class FormScreen extends StatelessWidget {
@@ -8,16 +11,21 @@ class FormScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    
+    final dataProvider = Provider.of<DataFormProvider>(context);
 
     return  Scaffold(
       body: Center(
          child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
-            children: [
-              SizedBox(height: 10,),
-              CardContainer(
+            children: const [
+               SizedBox(height: 30,),
+               CardContainer(
+                        child: _ImagePerson()
+                        //)
+              ),
+               SizedBox(height: 20),
+               CardContainer(
                 child: _DataForm()
                 )
               
@@ -26,9 +34,115 @@ class FormScreen extends StatelessWidget {
           ),
          ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        child: dataProvider.isProcessing? CircularProgressIndicator(color: Colors.white,): Icon(Icons.save),
+        onPressed: dataProvider.isSaving?
+        null:
+        (){
+          if(!dataProvider.isValid()){return;}
+
+          // final String? imageUrl = await productProvider.uploadImage();
+          // if(imageUrl != null){
+          //   formProvider.producto.picture = imageUrl;
+            
+    //      }
+          
+
+          dataProvider.altaCiudadano(dataProvider.persona);
+          
+        },
+      ),
     );
   }
 }
+
+class _ImagePerson extends StatelessWidget {
+  final String? path_image;
+  
+  const _ImagePerson({
+    Key? key, this.path_image,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+      final providerData = Provider.of<DataFormProvider>(context);
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+      width: double.infinity,
+      height: size.height * 0.4,
+      decoration: _ImageDecoration(),
+      child: Opacity(
+          opacity: 0.7,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(45), topRight: Radius.circular(45)),
+            child: Stack(
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: getImage(providerData.persona.foto),
+                ),
+                              Positioned(
+                                right: 20,
+                                top: 60,
+                                child: IconButton(
+                                  onPressed: () async{
+                                    final ImagePicker _picker = new ImagePicker();
+                                    final XFile? pickedFile = await _picker.pickImage(
+                                      source: ImageSource.camera,
+                                      imageQuality: 100
+                                      );
+                                      if(pickedFile == null){
+                                        print('No seleccionó nada');
+                                        return;
+                                      }
+                                      print('Tenemos imagen ${pickedFile.path}');
+                                      providerData.path_foto = pickedFile.path;
+                                      //productProvider.updateSelectedProductImage(pickedFile.path);
+                                  },
+                                  icon: Icon(Icons.camera_alt_outlined, color: Colors.black,size: 40,)
+                  )
+                  ),
+             
+
+              ],
+            )
+            
+            
+          ),
+    ));
+  }
+
+  
+  BoxDecoration _ImageDecoration() => BoxDecoration(
+    color: Colors.black12,
+    borderRadius: BorderRadius.only(topLeft: Radius.circular(45), topRight: Radius.circular(45)),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.07),
+        blurRadius: 10,
+        offset: Offset(0,5)
+      )
+    ]
+  );
+}
+
+Widget getImage(String? path_image){
+  
+  if(path_image == null || path_image == ""){
+    return Image(
+      fit: BoxFit.cover,
+      image:  AssetImage('assets/no-image.jpg'));
+
+  }
+    return  Image.file(
+      File(path_image),
+      fit: BoxFit.cover,
+    );
+     
+  }
 
 class _DataForm extends StatelessWidget {
   const _DataForm({
@@ -45,6 +159,28 @@ class _DataForm extends StatelessWidget {
         key: dataProvider.formKey,
         child: Column(
             children: [
+                _CustomInputField(
+                initialValue: dataProvider.persona.foto ?? "",
+                helperText:  'path de la foto',
+                hintText:  'se carga automaticamente',
+                labelText:  'Path de la Foto', 
+                icon:  Icons.assignment_ind_rounded,
+                suffixIcon:  Icons.confirmation_number_outlined,
+                formProperty:  'foto',
+                //formValues: obj,
+                onChanged: (value){
+                  // try {
+                  //   dataProvider.persona.dniNumero = int.parse(value);                    
+                  // } catch (e) {
+                  //   dataProvider.persona.dniNumero = 0;                    
+                  // }
+                },
+                validator: (value){
+                    // if(value ==  null) return  'Este campo es Obligatorio';
+                    // return value.length <  7?  'El DNI debe ser válido y sin puntos':  null;
+                     },
+                ),
+                const  SizedBox(height:  30,),
               _CustomInputField(
                 initialValue: dataProvider.persona.dniNumero.toString(),
                 helperText:  'el D.N.I es un número entero',
@@ -172,7 +308,7 @@ class _DataForm extends StatelessWidget {
                 },
                 validator: (value){
                     if(value ==  null) return  'Este campo es Obligatorio';
-                    return value.length <  2?  'El sexo debe ser válido':  null;
+                    return value.length <  1?  'El sexo debe ser válido':  null;
                     },
                 ),
                 const  SizedBox(height:  30,),
@@ -193,7 +329,7 @@ class _DataForm extends StatelessWidget {
                   }
                 },
                 validator: (value){
-                    return value.length <  2?  'El ejemplar DNI debe ser válido':  null;
+                    return value.length <  1?  'El ejemplar DNI debe ser válido':  null;
                     },
                 ),
               const  SizedBox(height:  30,),
