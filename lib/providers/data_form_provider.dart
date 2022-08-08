@@ -16,11 +16,21 @@ class DataFormProvider extends ChangeNotifier {
   
   List<DataModel> gente = [];
   bool _isProcessing = false;
-  bool isSaving = false;
+  bool _saved = false;
+
   String _path_foto="/data/user/0/com.example.fl_oac/cache/3512e8c2-1c3a-4eff-84ad-65a761472da16740464865372477574.jpg";
 
   String get path_foto{
     return this._path_foto;
+  }
+
+  bool get saved{
+    return this._saved;
+  }
+
+  set saved(bool valor){
+    this._saved = valor;
+    notifyListeners();
   }
 
   set path_foto(String ruta){
@@ -37,9 +47,13 @@ class DataFormProvider extends ChangeNotifier {
   }
 
   altaCiudadano(DataModel persona) async{
+      //this.saved = true;
+      this.isProcessing = true;
       int clave = await DBService.db.nuevoCiudadano(persona);
       persona.id = clave;
       this.gente.add(persona);
+      this.isProcessing = false;
+      //this.saved = true;
   }
   
   cargarGente()async{

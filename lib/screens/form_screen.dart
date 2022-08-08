@@ -36,20 +36,47 @@ class FormScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        child: dataProvider.isProcessing? CircularProgressIndicator(color: Colors.white,): Icon(Icons.save),
-        onPressed: dataProvider.isSaving?
+        child: dataProvider.isProcessing? null: Icon(Icons.save),
+        onPressed: dataProvider.isProcessing?
         null:
         (){
-          if(!dataProvider.isValid()){return;}
-
-          // final String? imageUrl = await productProvider.uploadImage();
-          // if(imageUrl != null){
-          //   formProvider.producto.picture = imageUrl;
+          if(!dataProvider.isValid()){return;}          
             
-    //      }
-          
-
-          dataProvider.altaCiudadano(dataProvider.persona);
+           dataProvider.altaCiudadano(dataProvider.persona);
+           showDialog(context: context,
+             builder: (context){
+                return AlertDialog(
+                    shape:  RoundedRectangleBorder(borderRadius:  BorderRadiusDirectional.circular(15)),
+                    title:  const  Text('EXITO'),
+                    content:  Column(
+                            mainAxisSize:  MainAxisSize.min,
+                            children:   [
+                            //Text('Este es el Contenido del Logo'),
+                            //SizedBox(),
+                            Image(
+                              image: AssetImage('assets/logo3.jpg'),
+                              height: 50,
+                              ),
+                            //FlutterLogo(size:  100,)
+                            ],
+                    ),
+                    actions: [
+                    TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      elevation: MaterialStateProperty.all(10),
+                      alignment: Alignment.center
+                    ),
+                    onPressed: (){
+                          Navigator.pushReplacementNamed(context, 'lista'); 
+                    
+                    },
+                    child:  const  Text('ACEPTAR', textAlign: TextAlign.center, style: TextStyle(color: Colors.black),),
+                    )],);
+             }
+             );
+           
+                    
           
         },
       ),
