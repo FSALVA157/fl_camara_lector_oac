@@ -4,21 +4,22 @@ import 'package:flutter/material.dart';
 
 class DataFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> formKey2 = new GlobalKey<FormState>();
 
   late DataModel persona = new DataModel(
-        dniNumero: 21633094,      
-        nacimiento: "02/08/1970",
-        apellido: "Salva",
-        nombre: "Fernando",
-        sexo: "masculino",
-        foto: "/data/user/0/com.example.fl_oac/cache/3512e8c2-1c3a-4eff-84ad-65a761472da16740464865372477574.jpg"
+        dniNumero: 0,      
+        nacimiento: "",
+        apellido: "",
+        nombre: "",
+        sexo: "",
+        foto: ""
   );
   
   List<DataModel> gente = [];
   bool _isProcessing = false;
   bool _saved = false;
 
-  String _path_foto="/data/user/0/com.example.fl_oac/cache/3512e8c2-1c3a-4eff-84ad-65a761472da16740464865372477574.jpg";
+  String _path_foto="";
 
   String get path_foto{
     return this._path_foto;
@@ -54,6 +55,16 @@ class DataFormProvider extends ChangeNotifier {
       this.gente.add(persona);
       this.isProcessing = false;
       //this.saved = true;
+  }
+
+  limpiarPersona(){
+    this.persona = new DataModel(
+                dniNumero: 0, 
+                nacimiento: "",
+                apellido: "",
+                nombre: "",
+                 sexo: "");
+    notifyListeners();
   }
   
   cargarGente()async{

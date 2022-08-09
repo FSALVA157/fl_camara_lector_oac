@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class FormScreen extends StatelessWidget {
+class FormScreen2 extends StatelessWidget {
    
-  const FormScreen({Key? key}) : super(key: key);
+  const FormScreen2({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -76,12 +76,12 @@ class _FlotatingActionSave extends StatelessWidget {
             (){
               if(!dataProvider.isValid()){return;}          
                 
-               //dataProvider.altaCiudadano(dataProvider.persona);
+               dataProvider.altaCiudadano(dataProvider.persona);
                showDialog(context: context,
                  builder: (context){
                     return AlertDialog(
                         shape:  RoundedRectangleBorder(borderRadius:  BorderRadiusDirectional.circular(15)),
-                        title:  const  Text('CONFIRME EL NUEVO REGISTRO'),
+                        title:  const  Text('REGISTRO EXITOSO'),
                         content:  Column(
                                 mainAxisSize:  MainAxisSize.min,
                                 children:   [
@@ -99,7 +99,7 @@ class _FlotatingActionSave extends StatelessWidget {
                           alignment: Alignment.bottomLeft
                         ),
                         onPressed: (){
-                                Navigator.pop(context);
+                                return;
                         
                         },
                         child:  const  Text('CANCELAR', textAlign: TextAlign.center, style: TextStyle(color: Colors.black),),
@@ -111,7 +111,6 @@ class _FlotatingActionSave extends StatelessWidget {
                           alignment: Alignment.bottomRight
                         ),
                         onPressed: (){
-                            dataProvider.altaCiudadano(dataProvider.persona);
                               dataProvider.limpiarPersona();
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: 
                               (context)=>ListScreen())
@@ -259,7 +258,7 @@ class _DataForm extends StatelessWidget {
 
     return Container(
       child: Form(
-        key: dataProvider.formKey,
+        key: dataProvider.formKey2,
         child: Column(
             children: [
                 _CustomInputField(

@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:fl_oac/providers/data_form_provider.dart';
+import 'package:fl_oac/screens/form_screen_2.dart';
 import 'package:fl_oac/themes/global_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,10 +67,16 @@ class ListScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             leading: Icon(Icons.map, color: GlobalTheme.primary,),
-            title: Text(dataProvider.gente[index].apellido),
+            title: Text('${dataProvider.gente[index].apellido} ${dataProvider.gente[index].nombre}'),
             subtitle: Text(dataProvider.gente[index].dniNumero.toString()),
             trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey,),
-            onTap: (){},
+            onTap: (){
+              dataProvider.persona = dataProvider.gente[index];
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: 
+                              (context)=>FormScreen2())
+                              ); 
+              //Navigator.pushNamed(context, 'formulario');
+            },
           );
         },
       ),
